@@ -1,4 +1,4 @@
-print("Script by Sayt0")
+print("Script by Ezyou")
 
 ---
 --- @author Dylan MALANDAIN

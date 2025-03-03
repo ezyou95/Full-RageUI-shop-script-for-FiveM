@@ -8,9 +8,9 @@ CreateThread(function()
         local dist = #(posPlayer-point)
         if dist <=5 then
             interval = 0
-            DrawMarker(20, point.x, point.y, point.z, 0.6, 0.7, 0.0, 0.0, 0.0, 0.0, 0.5, 0.5, 0.5, 46, 60, 214, 150, false, false, false, false, false, false, false) --personalisation du marker--
+            DrawMarker(20, point.x, point.y, point.z, 0.6, 0.7, 0.0, 0.0, 0.0, 0.0, 0.5, 0.5, 0.5, 46, 60, 214, 150, false, false, false, false, false, false, false)
             if dist <= 1.5 then
-                ESX.ShowHelpNotification("Appuyer sur ~INPUT_CONTEXT~ pour ouvrir le menu de la supérette") --message indiquant au joueur qu'il peut ouvrir le menu grâce à sa touche d'interaction--
+                ESX.ShowHelpNotification("Appuyer sur ~INPUT_CONTEXT~ pour ouvrir le menu de la supérette")
                 if IsControlJustPressed(1, 51) then
                     openMenuShop()
                 end
@@ -24,7 +24,7 @@ CreateThread(function()
 
     SetBlipSprite(blip, 52)  -- Icône (52 = magasin)
     SetBlipDisplay(blip, 4)  -- Affichage sur la minimap
-    SetBlipScale(blip, 0.8)  -- Taille du blip
+    SetBlipScale(blip, 0.7)  -- Taille du blip
     SetBlipColour(blip, 2)   -- Couleur (2 = vert)
     SetBlipAsShortRange(blip, true) -- Apparition uniquement à courte distance
 
@@ -58,7 +58,7 @@ CreateThread(function()
 
     SetBlipSprite(blip, 52)
     SetBlipDisplay(blip, 4)
-    SetBlipScale(blip, 0.8)
+    SetBlipScale(blip, 0.7)
     SetBlipColour(blip, 2)
     SetBlipAsShortRange(blip, true)
 
@@ -92,7 +92,7 @@ CreateThread(function()
 
     SetBlipSprite(blip, 52)
     SetBlipDisplay(blip, 4)
-    SetBlipScale(blip, 0.8)
+    SetBlipScale(blip, 0.7)
     SetBlipColour(blip, 2)
     SetBlipAsShortRange(blip, true)
 
@@ -126,7 +126,7 @@ CreateThread(function()
 
     SetBlipSprite(blip, 52)
     SetBlipDisplay(blip, 4)
-    SetBlipScale(blip, 0.8)
+    SetBlipScale(blip, 0.7)
     SetBlipColour(blip, 2)
     SetBlipAsShortRange(blip, true)
 
@@ -160,7 +160,7 @@ CreateThread(function()
 
     SetBlipSprite(blip, 52)
     SetBlipDisplay(blip, 4)
-    SetBlipScale(blip, 0.8)
+    SetBlipScale(blip, 0.7)
     SetBlipColour(blip, 2)
     SetBlipAsShortRange(blip, true)
 
@@ -194,7 +194,7 @@ CreateThread(function()
 
     SetBlipSprite(blip, 52)
     SetBlipDisplay(blip, 4)
-    SetBlipScale(blip, 0.8)
+    SetBlipScale(blip, 0.7)
     SetBlipColour(blip, 2)
     SetBlipAsShortRange(blip, true)
 
@@ -228,7 +228,7 @@ CreateThread(function()
 
     SetBlipSprite(blip, 52)
     SetBlipDisplay(blip, 4)
-    SetBlipScale(blip, 0.8)
+    SetBlipScale(blip, 0.7)
     SetBlipColour(blip, 2)
     SetBlipAsShortRange(blip, true)
 
@@ -262,7 +262,7 @@ CreateThread(function()
 
     SetBlipSprite(blip, 52)
     SetBlipDisplay(blip, 4)
-    SetBlipScale(blip, 0.8)
+    SetBlipScale(blip, 0.7)
     SetBlipColour(blip, 2)
     SetBlipAsShortRange(blip, true)
 
@@ -296,7 +296,7 @@ CreateThread(function()
 
     SetBlipSprite(blip, 52)
     SetBlipDisplay(blip, 4)
-    SetBlipScale(blip, 0.8)
+    SetBlipScale(blip, 0.7)
     SetBlipColour(blip, 2)
     SetBlipAsShortRange(blip, true)
 
@@ -330,7 +330,7 @@ CreateThread(function()
 
     SetBlipSprite(blip, 52)
     SetBlipDisplay(blip, 4)
-    SetBlipScale(blip, 0.8)
+    SetBlipScale(blip, 0.7)
     SetBlipColour(blip, 2)
     SetBlipAsShortRange(blip, true)
 
@@ -364,7 +364,7 @@ CreateThread(function()
 
     SetBlipSprite(blip, 52)
     SetBlipDisplay(blip, 4)
-    SetBlipScale(blip, 0.8)
+    SetBlipScale(blip, 0.7)
     SetBlipColour(blip, 2)
     SetBlipAsShortRange(blip, true)
 
@@ -398,7 +398,7 @@ CreateThread(function()
 
     SetBlipSprite(blip, 52)
     SetBlipDisplay(blip, 4)
-    SetBlipScale(blip, 0.8)
+    SetBlipScale(blip, 0.7)
     SetBlipColour(blip, 2)
     SetBlipAsShortRange(blip, true)
 
@@ -432,7 +432,7 @@ CreateThread(function()
 
     SetBlipSprite(blip, 52)
     SetBlipDisplay(blip, 4)
-    SetBlipScale(blip, 0.8)
+    SetBlipScale(blip, 0.7)
     SetBlipColour(blip, 2)
     SetBlipAsShortRange(blip, true)
 
@@ -466,7 +466,7 @@ CreateThread(function()
 
     SetBlipSprite(blip, 52)
     SetBlipDisplay(blip, 4)
-    SetBlipScale(blip, 0.8)
+    SetBlipScale(blip, 0.7)
     SetBlipColour(blip, 2)
     SetBlipAsShortRange(blip, true)
 
@@ -500,7 +500,7 @@ CreateThread(function()
 
     SetBlipSprite(blip, 52)
     SetBlipDisplay(blip, 4)
-    SetBlipScale(blip, 0.8)
+    SetBlipScale(blip, 0.7)
     SetBlipColour(blip, 2)
     SetBlipAsShortRange(blip, true)
 
@@ -534,7 +534,7 @@ CreateThread(function()
 
     SetBlipSprite(blip, 52)
     SetBlipDisplay(blip, 4)
-    SetBlipScale(blip, 0.8)
+    SetBlipScale(blip, 0.7)
     SetBlipColour(blip, 2)
     SetBlipAsShortRange(blip, true)
 
@@ -568,7 +568,7 @@ CreateThread(function()
 
     SetBlipSprite(blip, 52)
     SetBlipDisplay(blip, 4)
-    SetBlipScale(blip, 0.8)
+    SetBlipScale(blip, 0.7)
     SetBlipColour(blip, 2)
     SetBlipAsShortRange(blip, true)
 
@@ -602,7 +602,7 @@ CreateThread(function()
 
     SetBlipSprite(blip, 52)
     SetBlipDisplay(blip, 4)
-    SetBlipScale(blip, 0.8)
+    SetBlipScale(blip, 0.7)
     SetBlipColour(blip, 2)
     SetBlipAsShortRange(blip, true)
 
@@ -636,7 +636,7 @@ CreateThread(function()
 
     SetBlipSprite(blip, 52)
     SetBlipDisplay(blip, 4)
-    SetBlipScale(blip, 0.8)
+    SetBlipScale(blip, 0.7)
     SetBlipColour(blip, 2)
     SetBlipAsShortRange(blip, true)
 

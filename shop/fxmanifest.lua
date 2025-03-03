@@ -1,6 +1,5 @@
 fx_version 'adamant'
 games{"gta5"}
-author 'ezyou'
 
 
 
@@ -18,10 +17,10 @@ client_scripts {
 
 
 
+
 client_scripts{
     "client/*.lua",
 }
-
 
 
 server_scripts{

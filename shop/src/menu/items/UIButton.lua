@@ -28,11 +28,9 @@ function RageUI.Button(Label, Description, Style, Enabled, Action, Submenu)
     Enabled = Enabled and (not isWaitingForServer)
     local CurrentMenu = RageUI.CurrentMenu
     if CurrentMenu ~= nil and CurrentMenu() then
-        ---@type number
         local Option = RageUI.Options + 1
 
         if CurrentMenu.Pagination.Minimum <= Option and CurrentMenu.Pagination.Maximum >= Option then
-            ---@type boolean
             local Active = CurrentMenu.Index == Option
             
             RageUI.ItemsSafeZone(CurrentMenu)
@@ -42,94 +40,136 @@ function RageUI.Button(Label, Description, Style, Enabled, Action, Submenu)
             local LeftBadgeOffset = haveLeftBadge and 27 or 0
             local RightBadgeOffset = haveRightBadge and 32 or 0
 
-            if not isThreadCreateded then
-                isThreadCreateded = true
-                CreateThread(function() 
-                    while true do
-                        if progressValue <= 5 then 
-                            progressValue = progressValue + 17
-                        else
-                            progressValue = progressValue + 17
-                        end
-                        
-                        
-
-                        if progressValue >= 800 then 
-                            progressValue = 0
-                            alpha = 100
-                            canInteract = false
-                        end
-
-                        if not RageUI.CurrentMenu then 
-                            isThreadCreateded = false
-                            canInteract = true
-                            return
-                        end
-
-                        Wait(10)
-                    end
-                end)
-            end
-
-            RenderRectangle(CurrentMenu.X + 15, CurrentMenu.Y + SettingsButton.SelectedSprite.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, SettingsButton.SelectedSprite.Width + CurrentMenu.WidthOffset - 30, SettingsButton.SelectedSprite.Height - 3, 35, 39, 47, 255)
+            RenderRectangle(
+                CurrentMenu.X + 15, 
+                CurrentMenu.Y + SettingsButton.SelectedSprite.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 
+                SettingsButton.SelectedSprite.Width + CurrentMenu.WidthOffset - 30, 
+                SettingsButton.SelectedSprite.Height - 3, 
+                35, 39, 47, 255
+            )
             
             if Active and canInteract then
-                local maxWidth = SettingsButton.SelectedSprite.Width + CurrentMenu.WidthOffset - 30 -- Largeur du rectangle principal
-                    local visibleWidth = math.min(progressValue, maxWidth) -- Empêche le rectangle animé de dépasser
-                    local offsetX = math.max(0, progressValue - maxWidth) -- Décale l'affichage uniquement si le rectangle a dépassé
+                local maxWidth = SettingsButton.SelectedSprite.Width + CurrentMenu.WidthOffset - 30 -- largeur du rectangle
+                local currentProgress = Action.animationProgress or 0
+                local visibleWidth = math.min(currentProgress, maxWidth)
+                local offsetX = math.max(0, currentProgress - maxWidth)
                 
-
-                    RenderRectangle(CurrentMenu.X + 15 + offsetX + 4, 
-                                    CurrentMenu.Y + SettingsButton.SelectedSprite.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 
-                                    math.max(0, visibleWidth - offsetX - 4 ),
-                                    SettingsButton.SelectedSprite.Height - 3, 
-                                    74, 75, 77, 100)
-                end
+                RenderRectangle(
+                    CurrentMenu.X + 15 + offsetX + 4, 
+                    CurrentMenu.Y + SettingsButton.SelectedSprite.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 
+                    math.max(0, visibleWidth - offsetX - 4),
+                    SettingsButton.SelectedSprite.Height - 3, 
+                    74, 75, 77, 100
+                )
+            end
             
             if Active then 
-                RenderRectangle(CurrentMenu.X + 15, CurrentMenu.Y + SettingsButton.SelectedSprite.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, SettingsButton.SelectedSprite.Width + CurrentMenu.WidthOffset - 427, SettingsButton.SelectedSprite.Height - 3, 46, 60, 214)
-            end
-
-            if not Active then
-                progressValue = 0
+                RenderRectangle(
+                    CurrentMenu.X + 15, 
+                    CurrentMenu.Y + SettingsButton.SelectedSprite.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 
+                    SettingsButton.SelectedSprite.Width + CurrentMenu.WidthOffset - 427, 
+                    SettingsButton.SelectedSprite.Height - 3, 
+                    46, 60, 214
+                )
             end
 
             if Enabled then
-                if haveLeftBadge then
-                    if (Style.LeftBadge ~= nil) then
-                        local LeftBadge = Style.LeftBadge(Active)
-                        RenderSprite(LeftBadge.BadgeDictionary or "commonmenu", LeftBadge.BadgeTexture or "", CurrentMenu.X + 17, CurrentMenu.Y + SettingsButton.LeftBadge.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, SettingsButton.LeftBadge.Width, SettingsButton.LeftBadge.Height, 0, LeftBadge.BadgeColour and LeftBadge.BadgeColour.R or 255, LeftBadge.BadgeColour and LeftBadge.BadgeColour.G or 255, LeftBadge.BadgeColour and LeftBadge.BadgeColour.B or 255, LeftBadge.BadgeColour and LeftBadge.BadgeColour.A or 255)
-                    end
+                if haveLeftBadge and (Style.LeftBadge ~= nil) then
+                    local LeftBadge = Style.LeftBadge(Active)
+                    RenderSprite(
+                        LeftBadge.BadgeDictionary or "commonmenu", 
+                        LeftBadge.BadgeTexture or "", 
+                        CurrentMenu.X + 17, 
+                        CurrentMenu.Y + SettingsButton.LeftBadge.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 
+                        SettingsButton.LeftBadge.Width, 
+                        SettingsButton.LeftBadge.Height, 
+                        0, 
+                        LeftBadge.BadgeColour and LeftBadge.BadgeColour.R or 255, 
+                        LeftBadge.BadgeColour and LeftBadge.BadgeColour.G or 255, 
+                        LeftBadge.BadgeColour and LeftBadge.BadgeColour.B or 255, 
+                        LeftBadge.BadgeColour and LeftBadge.BadgeColour.A or 255
+                    )
                 end
-                if haveRightBadge then
-                    if (Style.RightBadge ~= nil) then
-                        local RightBadge = Style.RightBadge(Active)
-                        RenderSprite(RightBadge.BadgeDictionary or "commonmenu", RightBadge.BadgeTexture or "", CurrentMenu.X + SettingsButton.RightBadge.X + CurrentMenu.WidthOffset, CurrentMenu.Y + SettingsButton.RightBadge.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, SettingsButton.RightBadge.Width, SettingsButton.RightBadge.Height, 0, RightBadge.BadgeColour and RightBadge.BadgeColour.R or 255, RightBadge.BadgeColour and RightBadge.BadgeColour.G or 255, RightBadge.BadgeColour and RightBadge.BadgeColour.B or 255, RightBadge.BadgeColour and RightBadge.BadgeColour.A or 255)
-                    end
+                if haveRightBadge and (Style.RightBadge ~= nil) then
+                    local RightBadge = Style.RightBadge(Active)
+                    RenderSprite(
+                        RightBadge.BadgeDictionary or "commonmenu", 
+                        RightBadge.BadgeTexture or "", 
+                        CurrentMenu.X + SettingsButton.RightBadge.X + CurrentMenu.WidthOffset, 
+                        CurrentMenu.Y + SettingsButton.RightBadge.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 
+                        SettingsButton.RightBadge.Width, 
+                        SettingsButton.RightBadge.Height, 
+                        0, 
+                        RightBadge.BadgeColour and RightBadge.BadgeColour.R or 255, 
+                        RightBadge.BadgeColour and RightBadge.BadgeColour.G or 255, 
+                        RightBadge.BadgeColour and RightBadge.BadgeColour.B or 255, 
+                        RightBadge.BadgeColour and RightBadge.BadgeColour.A or 255
+                    )
                 end
                 
                 if Style.RightLabel then
-                    RenderText(Style.RightLabel, CurrentMenu.X + SettingsButton.RightText.X - RightBadgeOffset + CurrentMenu.WidthOffset - 15, CurrentMenu.Y + SettingsButton.RightText.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 0, SettingsButton.RightText.Scale, Active and 255 or 153, Active and 255 or 153, Active and 255 or 153, 255, 2)
+                    RenderText(
+                        Style.RightLabel, 
+                        CurrentMenu.X + SettingsButton.RightText.X - RightBadgeOffset + CurrentMenu.WidthOffset - 15, 
+                        CurrentMenu.Y + SettingsButton.RightText.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 
+                        0, 
+                        SettingsButton.RightText.Scale, 
+                        Active and 255 or 153, 
+                        Active and 255 or 153, 
+                        Active and 255 or 153, 
+                        255, 
+                        2
+                    )
                 end
                                 
-                local R_ITEM_BUTTON = not Active and 104 or 255; 
-                local G_ITEM_BUTTON = not Active and 108 or 255;
-                local B_ITEM_BUTTON = not Active and 114 or 255;
+                local R_ITEM_BUTTON = not Active and 104 or 255
+                local G_ITEM_BUTTON = not Active and 108 or 255
+                local B_ITEM_BUTTON = not Active and 114 or 255
 
-
-                RenderText(not Active and Label or Label, CurrentMenu.X + SettingsButton.Text.X + LeftBadgeOffset + 15, CurrentMenu.Y + SettingsButton.Text.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 8, SettingsButton.Text.Scale, R_ITEM_BUTTON, G_ITEM_BUTTON, B_ITEM_BUTTON, 255);
+                RenderText(
+                    Label, 
+                    CurrentMenu.X + SettingsButton.Text.X + LeftBadgeOffset + 15, 
+                    CurrentMenu.Y + SettingsButton.Text.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 
+                    8, 
+                    SettingsButton.Text.Scale, 
+                    R_ITEM_BUTTON, 
+                    G_ITEM_BUTTON, 
+                    B_ITEM_BUTTON, 
+                    255
+                )
             else
                 if haveRightBadge then
                     local RightBadge = RageUI.BadgeStyle.Lock(Active)
-                    RenderSprite(RightBadge.BadgeDictionary or "commonmenu", RightBadge.BadgeTexture or "", CurrentMenu.X + SettingsButton.RightBadge.X + CurrentMenu.WidthOffset, CurrentMenu.Y + SettingsButton.RightBadge.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, SettingsButton.RightBadge.Width, SettingsButton.RightBadge.Height, 0, RightBadge.BadgeColour and RightBadge.BadgeColour.R or 255, RightBadge.BadgeColour and RightBadge.BadgeColour.G or 255, RightBadge.BadgeColour and RightBadge.BadgeColour.B or 255, RightBadge.BadgeColour and RightBadge.BadgeColour.A or 255)
+                    RenderSprite(
+                        RightBadge.BadgeDictionary or "commonmenu", 
+                        RightBadge.BadgeTexture or "", 
+                        CurrentMenu.X + SettingsButton.RightBadge.X + CurrentMenu.WidthOffset, 
+                        CurrentMenu.Y + SettingsButton.RightBadge.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 
+                        SettingsButton.RightBadge.Width, 
+                        SettingsButton.RightBadge.Height, 
+                        0, 
+                        RightBadge.BadgeColour and RightBadge.BadgeColour.R or 255, 
+                        RightBadge.BadgeColour and RightBadge.BadgeColour.G or 255, 
+                        RightBadge.BadgeColour and RightBadge.BadgeColour.B or 255, 
+                        RightBadge.BadgeColour and RightBadge.BadgeColour.A or 255
+                    )
                 end
 
-                local R_ITEM_BUTTON = not Active and 104 or 124; 
-                local G_ITEM_BUTTON = not Active and 108 or 129;
-                local B_ITEM_BUTTON = not Active and 114 or 135;
+                local R_ITEM_BUTTON = not Active and 104 or 124
+                local G_ITEM_BUTTON = not Active and 108 or 129
+                local B_ITEM_BUTTON = not Active and 114 or 135
 
-                -- TEXT ICI
-                RenderText(Label, CurrentMenu.X + SettingsButton.Text.X + LeftBadgeOffset + 15, CurrentMenu.Y + SettingsButton.Text.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 8, SettingsButton.Text.Scale, R_ITEM_BUTTON, G_ITEM_BUTTON, B_ITEM_BUTTON, 255);
+                RenderText(
+                    Label, 
+                    CurrentMenu.X + SettingsButton.Text.X + LeftBadgeOffset + 15, 
+                    CurrentMenu.Y + SettingsButton.Text.Y + CurrentMenu.SubtitleHeight + RageUI.ItemOffset, 
+                    8, 
+                    SettingsButton.Text.Scale, 
+                    R_ITEM_BUTTON, 
+                    G_ITEM_BUTTON, 
+                    B_ITEM_BUTTON, 
+                    255
+                )
             end
             RageUI.ItemOffset = RageUI.ItemOffset + SettingsButton.Rectangle.Height
             
@@ -159,16 +199,4 @@ function RageUI.Button(Label, Description, Style, Enabled, Action, Submenu)
         end
         RageUI.Options = RageUI.Options + 1
     end
-end
-
-function RageUI.ReloadAnimation()
-    CreateThread(function() 
-        while true do
-            Wait(10)
-            progressValue = 0
-            canInteract = true 
-            alpha = 100
-            break
-        end
-    end)
 end

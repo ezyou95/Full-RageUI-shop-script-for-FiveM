@@ -63,10 +63,7 @@ function RageUI.GoUp(Options)
                 local Audio = RageUI.Settings.Audio
 
                 TriggerEvent("InteractSound_CL:PlayOnOne", "audio", 0.2)
-                RageUI.ReloadAnimation()
-                RageUI.ReloadAnimationCheckBox()
-                RageUI.ReloadAnimationList()
-                
+                                
                 RageUI.LastControl = true
                 if (CurrentMenu.onIndexChange ~= nil) then
                     CreateThread(function()
@@ -117,10 +114,7 @@ function RageUI.GoDown(Options)
                 local Audio = RageUI.Settings.Audio
 
                 TriggerEvent("InteractSound_CL:PlayOnOne", "audio", 0.2)
-                RageUI.ReloadAnimation()
-                RageUI.ReloadAnimationCheckBox()
-                RageUI.ReloadAnimationList()
-
+              
                 RageUI.LastControl = false
                 if (CurrentMenu.onIndexChange ~= nil) then
                     CreateThread(function()
